@@ -14,11 +14,19 @@ const fontSize = ref(fontSizes[0]);
     <USelectMenu v-model="fontFamily" size="2xs" :options="fontFamilies" />
     <USelectMenu v-model="fontSize" size="2xs" :options="fontSizes" />
     <Icon name="bx:bold" />
-    <Icon name="uil:italic" />
-    <Icon name="iconoir:underline" />
+    <Icon name="ic:baseline-format-italic" />
+    <Icon name="ic:baseline-format-underlined" />
     <Icon name="iconoir:align-left" />
     <Icon name="iconoir:align-center" />
     <Icon name="iconoir:align-right" />
+    <div class="relative">
+      <Icon name="ic:baseline-format-color-text" />
+      <input type="color" class="opacity-0 absolute top-0 left-0 h-full" />
+    </div>
+    <div class="relative">
+      <Icon name="ic:baseline-format-color-fill" />
+      <input type="color" class="opacity-0 absolute top-0 left-0 h-full" />
+    </div>
   </div>
 </template>
 

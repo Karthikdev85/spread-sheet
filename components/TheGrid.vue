@@ -1,9 +1,10 @@
 <script setup lang="ts">
 const ROWS: number = 100;
 const COLS: number = 26;
-const addressBar = ref<string>("");
+// const addressBar = ref<string>("");
+const store = useSheet();
+const { addressBar } = storeToRefs(store);
 // let ind: number = 1;
-
 // const computeCells = (i: number) => {
 //   let ans: string = "";
 //   let n: number = i;
@@ -21,10 +22,10 @@ const addressBar = ref<string>("");
 // };
 
 const handleCellClick = (r: number, c: number) => {
-  let rowID: number = r + 1;
-  let colID: number = c + 1;
+  let rowID: number | string = r + 1;
+  let colID: number | string = String.fromCharCode(65 + c);
 
-  addressBar.value = "";
+  addressBar.value = `${colID}${rowID}`;
 };
 </script>
 <template>
@@ -33,9 +34,7 @@ const handleCellClick = (r: number, c: number) => {
   >
     <div
       class="h-[2rem] w-[2rem] border-r-[1px] border-b-[1px] border-gray-400 bg-gray-300 fixed z-40"
-    >
-      {{ addressBar }}
-    </div>
+    ></div>
     <div class="sticky top-[2rem] w-[2rem] left-0 bg-gray-100 z-10">
       <div
         v-for="row in ROWS"
