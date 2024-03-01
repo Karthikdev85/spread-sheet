@@ -4,6 +4,29 @@ const COLS: number = 26;
 // const addressBar = ref<string>("");
 const store = useSheet();
 const { addressBar } = storeToRefs(store);
+// interface CellProp {
+//   id: number | string;
+//   bold: boolean;
+//   italic: boolean;
+//   underline: boolean;
+//   alignment: string;
+//   fontfamily: string;
+//   fontSize: string;
+//   fontColor: string;
+//   BGColor: string;
+// }
+const cellProperties = (cell) => {
+  return {
+    "text-align": cell.alignment,
+    "font-family": cell.fontfamily,
+    "font-style": cell.italic ? "italic" : "normal",
+    "font-size": cell.fontSize,
+    "background-color": cell.BGColor,
+    color: cell.fontColor,
+    "font-weight": cell.bold ? "bolder" : "normal",
+    "text-decoration": cell.underline ? "underline" : "none",
+  };
+};
 // let ind: number = 1;
 // const computeCells = (i: number) => {
 //   let ans: string = "";
@@ -26,6 +49,7 @@ const handleCellClick = (r: number, c: number) => {
   let colID: number | string = String.fromCharCode(65 + c);
 
   addressBar.value = `${colID}${rowID}`;
+  store.activeCell = `${colID}-${rowID}`;
 };
 </script>
 <template>
@@ -37,11 +61,11 @@ const handleCellClick = (r: number, c: number) => {
     ></div>
     <div class="sticky top-[2rem] w-[2rem] left-0 bg-gray-100 z-10">
       <div
-        v-for="row in ROWS"
-        :key="row"
+        v-for="(row, r_ind) in store.sheetDB"
+        :key="r_ind"
         class="h-[2rem] w-[2rem] flex justify-center items-center border-b-[1px] border-r-[1px] border-gray-400"
       >
-        {{ row }}
+        {{ r_ind + 1 }}
       </div>
     </div>
     <div class="absolute top-0 left-[2rem]">
@@ -54,12 +78,25 @@ const handleCellClick = (r: number, c: number) => {
           {{ String.fromCharCode(65 + c_ind) }}
         </div>
       </div>
-      <div v-for="(row, r_i) in ROWS" :key="row" class="flex">
+      <!-- sheet grid -->
+      <div v-for="(row, r_i) in store.sheetDB" :key="r_i" class="flex">
         <div
-          v-for="(col, c_i) in COLS"
-          :key="col"
+          v-for="(cell, c_i) in row"
+          :key="cell.id"
           class="h-[2rem] w-[5rem] border-b-[1px] border-r-[1px] border-slate-300 pl-[1px]"
+          :style="{
+            fontWeight: cell.bold ? 'bolder' : 'normal',
+            fontStyle: cell.italic ? 'italic' : 'normal',
+            textDecoration: cell.underline ? 'underline' : 'none',
+            textAlign: cell.alignment,
+            fontFamily: cell.fontfamily,
+            fontSize: cell.fontSize,
+            color: cell.fontColor,
+            backgroundColor: cell.BGColor,
+          }"
           contenteditable="true"
+          spellcheck="false"
+          :data-cellID="`${r_i}-${c_i}`"
           @click="handleCellClick(r_i, c_i)"
         ></div>
       </div>
