@@ -4,29 +4,7 @@ const COLS: number = 26;
 // const addressBar = ref<string>("");
 const store = useSheet();
 const { addressBar } = storeToRefs(store);
-// interface CellProp {
-//   id: number | string;
-//   bold: boolean;
-//   italic: boolean;
-//   underline: boolean;
-//   alignment: string;
-//   fontfamily: string;
-//   fontSize: string;
-//   fontColor: string;
-//   BGColor: string;
-// }
-const cellProperties = (cell) => {
-  return {
-    "text-align": cell.alignment,
-    "font-family": cell.fontfamily,
-    "font-style": cell.italic ? "italic" : "normal",
-    "font-size": cell.fontSize,
-    "background-color": cell.BGColor,
-    color: cell.fontColor,
-    "font-weight": cell.bold ? "bolder" : "normal",
-    "text-decoration": cell.underline ? "underline" : "none",
-  };
-};
+
 // let ind: number = 1;
 // const computeCells = (i: number) => {
 //   let ans: string = "";
@@ -53,9 +31,7 @@ const handleCellClick = (r: number, c: number) => {
 };
 </script>
 <template>
-  <div
-    class="h-[calc(100vh-3rem-2rem-2rem-3rem)] relative bg-gray-100 overflow-scroll"
-  >
+  <div class="h-[calc(100vh-3rem-2rem-2rem-3rem)] relative overflow-scroll">
     <div
       class="h-[2rem] w-[2rem] border-r-[1px] border-b-[1px] border-gray-400 bg-gray-300 fixed z-40"
     ></div>
@@ -80,7 +56,7 @@ const handleCellClick = (r: number, c: number) => {
       </div>
       <!-- sheet grid -->
       <div v-for="(row, r_i) in store.sheetDB" :key="r_i" class="flex">
-        <div
+        <!-- <div
           v-for="(cell, c_i) in row"
           :key="cell.id"
           class="h-[2rem] w-[5rem] border-b-[1px] border-r-[1px] border-slate-300 pl-[1px]"
@@ -89,8 +65,8 @@ const handleCellClick = (r: number, c: number) => {
             fontStyle: cell.italic ? 'italic' : 'normal',
             textDecoration: cell.underline ? 'underline' : 'none',
             textAlign: cell.alignment,
-            fontFamily: cell.fontfamily,
-            fontSize: cell.fontSize,
+            fontFamily: cell.fontFamily,
+            fontSize: cell.fontSize + 'px',
             color: cell.fontColor,
             backgroundColor: cell.BGColor,
           }"
@@ -98,7 +74,14 @@ const handleCellClick = (r: number, c: number) => {
           spellcheck="false"
           :data-cellID="`${r_i}-${c_i}`"
           @click="handleCellClick(r_i, c_i)"
-        ></div>
+        ></div> -->
+        <TheCell
+          v-for="(cell, c_i) in row"
+          :key="cell.id"
+          :cell="cell"
+          :rowIndex="r_i"
+          :colIndex="c_i"
+        />
       </div>
     </div>
   </div>
