@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-50 text-gray-800">
+  <div>
     <!-- <NuxtWelcome /> -->
     <PageActions />
     <CellpropsActions />

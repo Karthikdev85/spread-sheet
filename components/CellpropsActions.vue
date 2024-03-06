@@ -2,7 +2,7 @@
 const store = useSheet();
 
 const fontFamilies = ["Monospace", "Sans-Serif", "Fantasy", "Cursive"];
-const fontSizes = [14, 16, 18, 20];
+const fontSizes = ["14", "16", "18", "20"];
 const { fontSize, fontFamily, fontColor, backgroundColor } = storeToRefs(store);
 // const fontSize = ref(fontSizes.value[0]);
 
@@ -10,9 +10,7 @@ const { fontSize, fontFamily, fontColor, backgroundColor } = storeToRefs(store);
 
 watch(fontColor, (color) => updateFontColor(color));
 watch(backgroundColor, (color) => updateBackgroundColor(color));
-
 watch(fontSize, (s) => updateFontSize(s));
-
 watch(fontFamily, (s) => updateFontFamily(s));
 // watch(
 //   () => [fontSize, fontFamily],

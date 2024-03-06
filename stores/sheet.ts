@@ -11,6 +11,7 @@ interface CellProp {
   fontColor: string
   BGColor: string
   value: string | number
+  formula: string
 }
 
 // interface SheetDB {
@@ -22,6 +23,7 @@ export const useSheet = defineStore('sheet', () => {
   const ROWS: number = 100
   const COLS: number = 26
   const addressBar = ref<string>('A1')
+  const formulaBar = ref<string>('')
   const sheetDB = reactive<CellProp[][]>([])
   const activeCell = ref<string>('')
 
@@ -47,6 +49,13 @@ export const useSheet = defineStore('sheet', () => {
     // }
   })
 
+  const getRowColID = computed(() => {
+    const address: string = addressBar.value;
+    const rowID: number = Number(address.slice(1)) - 1;
+    const colID: number = Number(address.charCodeAt(0)) - 65;
+    return [rowID, colID];
+  });
+
   for (let i = 0; i < ROWS; i++) {
     let sheetRow: CellProp[] = []
     for (let j = 0; j < COLS; j++) {
@@ -60,7 +69,8 @@ export const useSheet = defineStore('sheet', () => {
         fontSize: '14',
         fontColor: '#000000',
         BGColor: '#ffffff',
-        value: ''
+        value: '',
+        formula: ''
       }
       sheetRow.push(cellProp)
     }
@@ -70,10 +80,12 @@ export const useSheet = defineStore('sheet', () => {
     sheetDB,
     activeCell,
     addressBar,
+    formulaBar,
     // fontSizes,
     fontSize,
     fontFamily,
     fontColor,
-    backgroundColor
+    backgroundColor,
+    getRowColID
   }
 })

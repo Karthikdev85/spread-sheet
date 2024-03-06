@@ -22,12 +22,21 @@ const { addressBar } = storeToRefs(store);
 //   return ans;
 // };
 
-const handleCellClick = (r: number, c: number) => {
+const handleCellClick = (evt, r: number, c: number) => {
   let rowID: number | string = r + 1;
   let colID: number | string = String.fromCharCode(65 + c);
 
   addressBar.value = `${colID}${rowID}`;
   store.activeCell = `${colID}-${rowID}`;
+  console.log(store.sheetDB[r][c].formula);
+};
+
+const handlePreviousCell = (r: number, c: number) => {
+  const cell = document.querySelector(`[data-cellID="${r}-${c}"]`);
+  // console.log(cell?.innerText);
+  // addressBar.value = `${colID}${rowID}`;
+  // store.activeCell = `${colID}-${rowID}`;
+  store.sheetDB[r][c].value = cell?.textContent;
 };
 </script>
 <template>
@@ -75,13 +84,37 @@ const handleCellClick = (r: number, c: number) => {
           :data-cellID="`${r_i}-${c_i}`"
           @click="handleCellClick(r_i, c_i)"
         ></div> -->
-        <TheCell
+        <TheCell>
+          <div
+            v-for="(cell, c_i) in row"
+            :key="cell.id"
+            class="h-[2rem] w-[5rem] border-b-[1px] border-r-[1px] border-slate-300 pl-[1px]"
+            :style="{
+              fontWeight: cell.bold ? 'bolder' : 'normal',
+              fontStyle: cell.italic ? 'italic' : 'normal',
+              textDecoration: cell.underline ? 'underline' : 'none',
+              textAlign: cell.alignment,
+              fontFamily: cell.fontFamily,
+              fontSize: cell.fontSize + 'px',
+              color: cell.fontColor,
+              backgroundColor: cell.BGColor,
+            }"
+            contenteditable="true"
+            spellcheck="false"
+            :data-cellID="`${r_i}-${c_i}`"
+            @click="handleCellClick($event, r_i, c_i)"
+            @blur="handlePreviousCell(r_i, c_i)"
+          >
+            {{ cell.value }}
+          </div>
+        </TheCell>
+        <!-- <TheCell
           v-for="(cell, c_i) in row"
           :key="cell.id"
           :cell="cell"
           :rowIndex="r_i"
           :colIndex="c_i"
-        />
+        /> -->
       </div>
     </div>
   </div>
