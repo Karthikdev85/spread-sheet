@@ -20,8 +20,8 @@ interface CellProp {
 // const sheetDB: CellProp[][] = []
 
 export const useSheet = defineStore('sheet', () => {
-  const ROWS: number = 100
-  const COLS: number = 26
+  const ROWS: number = 40
+  const COLS: number = 12
   const addressBar = ref<string>('A1')
   const formulaBar = ref<string>('')
   const sheetDB = reactive<CellProp[][]>([])

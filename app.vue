@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="">
     <!-- <NuxtWelcome /> -->
-    <PageActions />
+    <!-- <PageActions /> -->
     <CellpropsActions />
     <TheFormula />
     <TheGrid />

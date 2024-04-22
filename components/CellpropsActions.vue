@@ -108,7 +108,7 @@ const getTextAlignment = computed(() => {
 });
 </script>
 <template>
-  <div class="h-[2rem] px-3 bg-red-200 flex items-center gap-2">
+  <div class="h-[2rem] px-3 bg-gray-50 flex items-center gap-2">
     <Icon name="ic:sharp-undo" />
     <Icon name="ic:baseline-redo" />
     <Icon name="solar:copy-bold" />
@@ -153,19 +153,23 @@ const getTextAlignment = computed(() => {
     />
     <Icon
       name="iconoir:align-left"
-      :style="{ backgroundColor: getTextAlignment === 'left' ? 'yellow' : '' }"
+      :style="{
+        backgroundColor: getTextAlignment === 'left' ? '#BBDEFB' : '',
+      }"
       @click="updateTextAlignment('left')"
     />
     <Icon
       name="iconoir:align-center"
       :style="{
-        backgroundColor: getTextAlignment === 'center' ? 'yellow' : '',
+        backgroundColor: getTextAlignment === 'center' ? '#E3F2FD' : '',
       }"
       @click="updateTextAlignment('center')"
     />
     <Icon
       name="iconoir:align-right"
-      :style="{ backgroundColor: getTextAlignment === 'right' ? 'yellow' : '' }"
+      :style="{
+        backgroundColor: getTextAlignment === 'right' ? '#E3F2FD' : '',
+      }"
       @click="updateTextAlignment('right')"
     />
     <div class="relative">

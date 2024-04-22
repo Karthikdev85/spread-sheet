@@ -47,11 +47,16 @@ const handleFormula = (evt: KeyboardEvent) => {
 };
 </script>
 <template>
-  <div class="h-[2rem] px-2 bg-blue-200 flex gap-2 items-center">
-    <input class="w-20 text-center outline-none" v-model="addressBar" />
+  <div
+    class="h-[2rem] px-2 bg-gray-50 flex gap-2 items-center border-b-2 border-gray-300"
+  >
+    <input
+      class="w-20 text-center outline-none rounded-sm border-2 border-gray-300"
+      v-model="addressBar"
+    />
     <Icon name="fluent:math-formula-24-filled" />
     <input
-      class="flex-grow pl-1 outline-none"
+      class="flex-grow pl-1 outline-none rounded-sm border-2 border-gray-300"
       v-model="formulaBar"
       @keydown="handleFormula($event)"
     />
